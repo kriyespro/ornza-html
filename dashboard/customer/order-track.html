@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Tracker · ORNZA Customer Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../dashboard.css">
+</head>
+<body class="portal">
+  <div class="portal-shell">
+    <aside class="portal-sidebar">
+      <div class="portal-brand">
+        <div class="portal-brand-logo">ORN<span>Z</span>A</div>
+        <span class="portal-brand-badge">Customer</span>
+      </div>
+      <nav class="portal-nav">
+        <div class="portal-nav-label">My Account</div>
+        <a href="index.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          Overview
+        </a>
+        <a href="orders.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+          My Orders
+        </a>
+        <a href="order-track.html" class="portal-nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Order Tracker
+        </a>
+        <a href="wishlist.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Wishlist
+        </a>
+        <a href="addresses.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Addresses
+        </a>
+        <a href="profile.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile &amp; Settings
+        </a>
+      </nav>
+      <div class="portal-sidebar-footer">
+        <div class="portal-user-mini">
+          <div class="portal-user-avatar">PS</div>
+          <div class="portal-user-info">
+            <div class="portal-user-name">Priya Sharma</div>
+            <div class="portal-user-role">Gold Member</div>
+          </div>
+        </div>
+        <a href="../../index.html" class="portal-back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Store
+        </a>
+      </div>
+    </aside>
+    <div class="portal-sidebar-overlay"></div>
+    <main class="portal-main">
+      <header class="portal-topbar">
+        <button class="portal-topbar-toggle" aria-label="Toggle menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <h1 class="portal-topbar-title">Order Tracker</h1>
+        <div class="portal-topbar-spacer"></div>
+        <a href="orders.html" class="portal-btn portal-btn-outline portal-btn-sm">← My Orders</a>
+      </header>
+      <div class="portal-content">
+        <div class="portal-card" style="margin-bottom:24px;">
+          <div class="portal-card-header">
+            <h2 class="portal-card-title">Order <span id="track-page-id">—</span></h2>
+            <div style="display:flex;gap:8px;">
+              <span id="track-page-status"></span>
+              <span id="track-page-payment"></span>
+            </div>
+          </div>
+          <div class="portal-card-body">
+            <div class="portal-payment-row">
+              <div>
+                <div class="portal-payment-row-label">Delivery ETA</div>
+                <div id="track-page-eta" style="font-weight:600;margin-top:4px;">—</div>
+              </div>
+              <div>
+                <div class="portal-payment-row-label">Courier</div>
+                <div id="track-page-courier" style="font-size:13px;margin-top:4px;color:var(--portal-text-muted);">—</div>
+              </div>
+              <div>
+                <div class="portal-payment-row-label">Payment</div>
+                <div id="track-page-method" style="font-size:13px;margin-top:4px;">—</div>
+              </div>
+            </div>
+            <div class="portal-timeline" id="track-page-timeline"></div>
+          </div>
+        </div>
+        <div class="portal-card">
+          <div class="portal-card-header"><h2 class="portal-card-title">Items in this Order</h2></div>
+          <div class="portal-card-body" id="track-page-items"></div>
+        </div>
+        <p style="text-align:center;margin-top:24px;font-size:12px;color:var(--portal-text-muted);">
+          Track another order? <a href="../../track-order.html" style="color:var(--portal-gold-deep);font-weight:600;">Public order tracker →</a>
+        </p>
+      </div>
+    </main>
+  </div>
+  <script src="../../orders-data.js"></script>
+  <script src="customer-orders.js"></script>
+  <script src="../dashboard.js"></script>
+</body>
+</html>

@@ -4777,6 +4777,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   padding-top: 14px;
   border-top: 1px solid rgba(201, 168, 76, 0.08);
 }
@@ -4890,6 +4892,28 @@ body {
   justify-content: center;
 }
 
+.hamper-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hamper-card:hover .hamper-card-img {
+  transform: scale(1.06);
+}
+
+.hamper-card-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 8, 5, 0.35) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .hamper-icon-display {
   font-size: 60px;
   line-height: 1;
@@ -4919,6 +4943,7 @@ body {
   position: absolute;
   top: 14px;
   right: 14px;
+  z-index: 2;
   background: var(--color-gold);
   color: #0a0805;
   font-size: 7px;
@@ -5116,35 +5141,140 @@ body {
    SHARED CART (cart.js)
    ========================================== */
 
-.prod-add-cart {
-  width: 100%;
-  display: flex;
+/* Unified Add to Cart button — all pages */
+.ornza-add-cart,
+.prod-add-cart,
+.cat-add-cart-btn,
+.product-btn.add-to-cart-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   background: #1A1507;
   color: #C9A84C;
-  border: none;
-  padding: 11px 16px;
+  border: 1px solid transparent;
+  padding: 0 14px;
+  height: 34px;
+  min-width: 34px;
+  width: auto;
   font-family: var(--font-sans);
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  white-space: nowrap;
   cursor: pointer;
-  border-radius: 0 0 6px 6px;
-  transition: var(--transition-fast);
-  margin-top: 12px;
+  border-radius: 4px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
-.prod-add-cart:hover {
-  background: var(--color-gold);
+.ornza-add-cart svg,
+.prod-add-cart svg,
+.cat-add-cart-btn svg,
+.product-btn.add-to-cart-btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.ornza-add-cart-label,
+.prod-add-cart-label,
+.add-cart-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ornza-add-cart:hover,
+.prod-add-cart:hover,
+.cat-add-cart-btn:hover,
+.product-btn.add-to-cart-btn:hover {
+  background: #C9A84C;
+  color: #1A1507;
+  border-color: #C9A84C;
+}
+
+.ornza-add-cart.added,
+.prod-add-cart.added,
+.cat-add-cart-btn.added,
+.product-btn.add-to-cart-btn.added {
+  background: #6bcb77;
+  color: #fff;
+  border-color: #6bcb77;
+}
+
+/* Homepage product cards — align with price row */
+.prod-card-footer .ornza-add-cart,
+.prod-card-footer .prod-add-cart {
+  flex: 0 0 auto;
+  padding: 0 14px;
+  min-width: 64px;
+  height: 34px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  align-self: center;
+}
+
+.prod-card-footer .ornza-add-cart svg,
+.prod-card-footer .prod-add-cart svg {
+  width: 13px;
+  height: 13px;
+}
+
+.prod-card-footer .ornza-add-cart.added,
+.prod-card-footer .prod-add-cart.added {
+  min-width: 72px;
+}
+
+/* Category / hamper cards — match inquire button scale */
+.cat-product-footer .ornza-add-cart,
+.cat-product-footer .cat-add-cart-btn,
+.hamper-card-footer .ornza-add-cart,
+.hamper-card-footer .cat-add-cart-btn {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 9px;
+  margin-left: auto;
+}
+
+/* Collection product pages — override square icon-only default */
+.product-btn.add-to-cart-btn {
+  width: auto;
+  min-width: 64px;
+  padding: 0 14px;
+  height: 34px;
+}
+
+.product-btn.add-to-cart-btn:hover {
   color: #1A1507;
 }
 
-.prod-add-cart.added {
-  background: #6bcb77;
-  color: #fff;
+body.ornza-page .product-btn.add-to-cart-btn {
+  background: #1A1507;
+  color: #C9A84C;
+  border-color: transparent;
+}
+
+body.ornza-page .product-btn.add-to-cart-btn:hover {
+  background: #C9A84C;
+  color: #1A1507;
+}
+
+@media (max-width: 900px) {
+  .prod-card-footer .ornza-add-cart .ornza-add-cart-label,
+  .prod-card-footer .ornza-add-cart .prod-add-cart-label,
+  .prod-card-footer .prod-add-cart .ornza-add-cart-label,
+  .prod-card-footer .prod-add-cart .prod-add-cart-label {
+    display: none;
+  }
+
+  .prod-card-footer .ornza-add-cart,
+  .prod-card-footer .prod-add-cart {
+    padding: 0;
+    width: 34px;
+    min-width: 34px;
+  }
 }
 
 .cart-float {
@@ -5389,56 +5519,9 @@ body {
   z-index: 700;
 }
 
-.cat-add-cart-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #1A1507;
-  color: #C9A84C;
-  border: 1px solid rgba(201, 168, 76, 0.35);
-  padding: 8px 12px;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: var(--transition-fast);
-  font-family: var(--font-sans);
-}
-
-.cat-add-cart-btn:hover {
-  background: var(--color-gold);
-  color: #1A1507;
-  border-color: var(--color-gold);
-}
-
-.cat-add-cart-btn.added {
-  background: #6bcb77;
-  color: #fff;
-  border-color: #6bcb77;
-}
-
-.cat-product-footer {
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.product-btn.add-to-cart-btn {
-  width: auto;
-  padding: 0 12px;
-  gap: 4px;
-}
-
-.product-btn.add-to-cart-btn .add-cart-label {
-  font-size: 7px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
 .product-btn-group {
   flex-wrap: wrap;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -6225,12 +6308,25 @@ body.ornza-page .shimmer-line {
   display: none !important;
 }
 
+#ornza-site-footer {
+  width: 100%;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
 body.ornza-page .page {
   background: var(--color-bg);
+  width: 100%;
+  max-width: 100%;
+  min-height: auto;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-top: calc(var(--header-h, 72px) + 20px);
 }
 
 body.ornza-page .page-title {
   color: #1A1507;
+  text-shadow: none;
 }
 
 body.ornza-page .page-desc,
@@ -6464,6 +6560,36 @@ body.ornza-page .form-group label {
 
 body.ornza-page .method-label {
   color: rgba(58, 46, 24, 0.45);
+}
+
+body.ornza-page .contact-section {
+  width: 100%;
+  max-width: 1100px;
+}
+
+body.ornza-page .map-container {
+  background: var(--color-bg-alt);
+  border-color: rgba(201, 168, 76, 0.2);
+}
+
+body.ornza-page .faq-section {
+  border-top-color: rgba(201, 168, 76, 0.15);
+}
+
+body.ornza-page .social-link {
+  color: var(--color-gold-deep);
+  border-color: rgba(201, 168, 76, 0.3);
+  background: #fff;
+}
+
+body.ornza-page .social-link:hover {
+  color: #1A1507;
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.15);
+}
+
+body.ornza-page .social-row {
+  margin-bottom: 0;
 }
 
 /* Reviews page — full layout (replaces per-page inline styles) */

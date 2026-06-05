@@ -265,9 +265,52 @@
       max-height: 200px;
       padding: 0 20px 16px;
     }
+    .track-status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .track-payment-badge, .track-order-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .track-payment-badge.payment-paid, .track-payment-badge.payment-cod_collected { color: #6bcb77; border: 1px solid rgba(107,203,119,0.35); background: rgba(107,203,119,0.08); }
+    .track-payment-badge.payment-pending { color: var(--color-gold); border: 1px solid rgba(201,168,76,0.35); background: rgba(201,168,76,0.08); }
+    .track-payment-badge.payment-cod, .track-payment-badge.payment-cod_pending { color: #7eb8e8; border: 1px solid rgba(126,184,232,0.35); background: rgba(126,184,232,0.08); }
+    .track-payment-badge.payment-failed, .track-payment-badge.payment-refunded { color: #e88; border: 1px solid rgba(238,136,136,0.35); background: rgba(238,136,136,0.08); }
+    .track-order-badge.status-shipped, .track-order-badge.status-delivered { color: #6bcb77; border: 1px solid rgba(107,203,119,0.3); background: rgba(107,203,119,0.06); }
+    .track-order-badge.status-processing, .track-order-badge.status-pending { color: var(--color-gold); border: 1px solid rgba(201,168,76,0.3); background: rgba(201,168,76,0.06); }
+    .track-order-badge.status-cancelled { color: #e88; border: 1px solid rgba(238,136,136,0.3); background: rgba(238,136,136,0.06); }
+    .track-step.failed { border-color: rgba(238,136,136,0.3); }
+    .track-step.failed::before { border-color: #e88; background: #e88; }
+    .track-step-badge.failed { color: #e88; border: 1px solid rgba(238,136,136,0.3); background: rgba(238,136,136,0.06); }
+    .track-step-badge.pending { color: rgba(232,213,160,0.5); border: 1px solid rgba(201,168,76,0.15); }
+    .track-items-list { margin-bottom: 28px; }
+    .track-item-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      background: rgba(10,8,4,0.35);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .track-item-row img { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; }
+    .track-item-name { font-size: 13px; color: var(--color-text-light); }
+    .track-item-meta { font-size: 11px; color: rgba(232,213,160,0.45); margin-top: 2px; }
     @media (max-width: 600px) {
       .track-form-card { padding: 28px 20px; }
-      .track-order-info { grid-template-columns: 1fr; gap: 12px; }
+      .track-order-info { grid-template-columns: 1fr 1fr; gap: 12px; }
     }
   </style>
 </head>
@@ -294,7 +337,7 @@
       <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-gold);margin-bottom:28px;font-weight:500;">Enter Order Details</div>
       <div class="form-group" style="margin-bottom:16px;">
         <label for="order-id">Order ID</label>
-        <input type="text" id="order-id" class="form-input" placeholder="e.g. ORNZA-2025-001234" maxlength="30">
+        <input type="text" id="order-id" class="form-input" placeholder="e.g. ORN-2847" maxlength="30">
       </div>
       <div class="form-group" style="margin-bottom:24px;">
         <label for="order-email">Email / Phone Used at Checkout</label>
@@ -305,6 +348,7 @@
         Track My Order
       </button>
       <div class="form-message" id="track-message"></div>
+      <p style="font-size:10px;color:rgba(232,213,160,0.35);margin-top:16px;text-align:center;">Demo: ORN-2847 · priya.sharma@email.com</p>
 
       <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(201,168,76,0.08);text-align:center;">
         <div style="font-size:10px;color:rgba(232,213,160,0.4);font-weight:300;margin-bottom:8px;">Need help? Contact us directly</div>
@@ -337,64 +381,39 @@
       </div>
     </div>
 
+    <div class="track-status-row">
+      <span id="result-order-status"></span>
+      <span id="result-payment-status"></span>
+    </div>
+
     <!-- Order Info -->
     <div class="track-order-info">
       <div>
         <div class="order-info-item-label">Order ID</div>
-        <div class="order-info-item-val" id="result-oid">â€”</div>
+        <div class="order-info-item-val" id="result-oid">—</div>
       </div>
       <div>
-        <div class="order-info-item-label">Items Ordered</div>
-        <div class="order-info-item-val" id="result-items">â€”</div>
+        <div class="order-info-item-label">Items</div>
+        <div class="order-info-item-val" id="result-items">—</div>
       </div>
       <div>
         <div class="order-info-item-label">Order Date</div>
-        <div class="order-info-item-val" id="result-date">â€”</div>
+        <div class="order-info-item-val" id="result-date">—</div>
+      </div>
+      <div>
+        <div class="order-info-item-label">Total</div>
+        <div class="order-info-item-val" id="result-total">—</div>
+      </div>
+      <div>
+        <div class="order-info-item-label">Payment Method</div>
+        <div class="order-info-item-val" id="result-payment-method">—</div>
       </div>
     </div>
 
+    <div class="track-items-list" id="track-items-list"></div>
+
     <!-- Timeline -->
-    <div class="track-timeline" id="track-timeline">
-      <div class="track-step completed" id="step-placed">
-        <div class="track-step-header">
-          <div class="track-step-name">âœ” Order Confirmed</div>
-          <div class="track-step-time" id="time-placed">â€”</div>
-        </div>
-        <div class="track-step-desc">Your order has been received and payment confirmed.</div>
-        <div class="track-step-badge done">âœ” Done</div>
-      </div>
-      <div class="track-step completed" id="step-crafting">
-        <div class="track-step-header">
-          <div class="track-step-name">âœ” Being Handcrafted</div>
-          <div class="track-step-time" id="time-crafting">â€”</div>
-        </div>
-        <div class="track-step-desc">Our artisans in Surat are carefully crafting your jewellery with gold plating and quality finishing.</div>
-        <div class="track-step-badge done">âœ” Done</div>
-      </div>
-      <div class="track-step completed" id="step-qc">
-        <div class="track-step-header">
-          <div class="track-step-name">âœ” Quality Checked</div>
-          <div class="track-step-time" id="time-qc">â€”</div>
-        </div>
-        <div class="track-step-desc">Your order passed our 10-point quality inspection and is being beautifully packaged.</div>
-        <div class="track-step-badge done">âœ” Done</div>
-      </div>
-      <div class="track-step active" id="step-shipped">
-        <div class="track-step-header">
-          <div class="track-step-name">ðŸ“¦ Shipped</div>
-          <div class="track-step-time" id="time-shipped">â€”</div>
-        </div>
-        <div class="track-step-desc">Your parcel is on its way! Tracking ID: <span id="courier-id" style="color:var(--color-gold);">â€”</span> via <span id="courier-name" style="color:var(--color-gold);">â€”</span></div>
-        <div class="track-step-badge in-progress">ðŸšš In Transit</div>
-      </div>
-      <div class="track-step" id="step-delivered">
-        <div class="track-step-header">
-          <div class="track-step-name">ðŸ“¬ Delivered</div>
-          <div class="track-step-time" id="time-delivered">Pending</div>
-        </div>
-        <div class="track-step-desc">Your ORNZA jewellery will be delivered to your doorstep.</div>
-      </div>
-    </div>
+    <div class="track-timeline" id="track-timeline"></div>
   </div>
 
   <!-- â”€â”€ Shipping Info Strip â”€â”€ -->
@@ -456,61 +475,10 @@
   <div id="ornza-site-footer"></div>
 
 <script>
-function trackOrder() {
-      const oid = document.getElementById('order-id').value.trim();
-      const email = document.getElementById('order-email').value.trim();
-      const msg = document.getElementById('track-message');
-      if (!oid || !email) {
-        msg.textContent = 'Please enter both Order ID and your email or phone number.';
-        msg.className = 'form-message error';
-        return;
-      }
-
-      // Simulate loading
-      const btn = document.getElementById('track-btn');
-      btn.textContent = 'Tracking...';
-      btn.style.opacity = '0.7';
-      msg.textContent = '';
-
-      setTimeout(() => {
-        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Track My Order';
-        btn.style.opacity = '1';
-
-        // Demo: show result for any input
-        showResult(oid);
-      }, 1800);
-    }
-
-    function showResult(oid) {
-      const today = new Date();
-      const etaDate = new Date(today);
-      etaDate.setDate(etaDate.getDate() + 2);
-
-      const opts = { day: 'numeric', month: 'long', year: 'numeric' };
-      const etaStr = etaDate.toLocaleDateString('en-IN', opts);
-      const placedDate = new Date(today);
-      placedDate.setDate(today.getDate() - 4);
-
-      document.getElementById('result-oid').textContent = oid.toUpperCase().startsWith('ORNZA') ? oid.toUpperCase() : 'ORNZA-' + oid.toUpperCase();
-      document.getElementById('result-items').textContent = '1 Item';
-      document.getElementById('result-date').textContent = placedDate.toLocaleDateString('en-IN', opts);
-      document.getElementById('eta-date').textContent = etaStr;
-      document.getElementById('eta-note').textContent = 'Estimated delivery · Express Shipping';
-      document.getElementById('time-placed').textContent = new Date(placedDate.getTime() + 2*3600000).toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
-      document.getElementById('time-crafting').textContent = new Date(placedDate.getTime() + 28*3600000).toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
-      document.getElementById('time-qc').textContent = new Date(placedDate.getTime() + 48*3600000).toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
-      document.getElementById('time-shipped').textContent = new Date(today.getTime() - 10*3600000).toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
-      document.getElementById('courier-id').textContent = 'BD' + Math.floor(Math.random() * 9000000 + 1000000);
-      document.getElementById('courier-name').textContent = 'BlueDart Express';
-
-      document.getElementById('track-result').classList.add('visible');
-      document.getElementById('track-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function toggleFaq(el) {
-      el.classList.toggle('open');
-    }
+    function toggleFaq(el) { el.classList.toggle('open'); }
   </script>
+  <script src="orders-data.js"></script>
+  <script src="order-tracker.js"></script>
 <!-- Sticky WhatsApp Button -->
 <a href="https://wa.me/919999999999" class="wa-sticky-btn" target="_blank" aria-label="Chat with us on WhatsApp">
   <svg viewBox="0 0 24 24">

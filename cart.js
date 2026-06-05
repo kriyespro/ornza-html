@@ -3,7 +3,33 @@
   const STORAGE_KEY = 'ornzaCart';
   const WA_NUMBER = '919999999999';
 
+  const CART_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M3 3h2l2.2 10.3a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 7H6"/></svg>`;
+
   const parsePrice = (str) => parseInt(String(str).replace(/[^\d]/g, ''), 10) || 0;
+
+  const addCartMarkup = (label = 'Add') =>
+    `${CART_ICON}<span class="ornza-add-cart-label">${label}</span>`;
+
+  const flashAddCartBtn = (btn) => {
+    if (!btn) return;
+    btn.classList.add('added');
+    const label = btn.querySelector('.ornza-add-cart-label, .prod-add-cart-label, .add-cart-label');
+    if (label) {
+      if (!btn.dataset.originalLabel) btn.dataset.originalLabel = label.textContent;
+      label.textContent = 'Added ✓';
+      setTimeout(() => {
+        btn.classList.remove('added');
+        label.textContent = btn.dataset.originalLabel;
+      }, 1800);
+      return;
+    }
+    if (!btn.dataset.originalLabel) btn.dataset.originalLabel = btn.textContent;
+    btn.textContent = 'Added ✓';
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.textContent = btn.dataset.originalLabel;
+    }, 1800);
+  };
 
   const getCart = () => {
     try {
@@ -151,19 +177,10 @@
     const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
     showToast(`Added to cart · ${count} item${count === 1 ? '' : 's'}`);
 
-    if (btn) {
-      const original = btn.dataset.originalLabel || btn.innerHTML;
-      btn.dataset.originalLabel = original;
-      btn.classList.add('added');
-      if (btn.classList.contains('prod-add-cart') || btn.classList.contains('cat-add-cart-btn')) {
-        btn.textContent = 'Added ✓';
-      }
-      setTimeout(() => {
-        btn.classList.remove('added');
-        if (btn.classList.contains('prod-add-cart') || btn.classList.contains('cat-add-cart-btn')) {
-          btn.innerHTML = original;
-        }
-      }, 1800);
+    flashAddCartBtn(btn);
+
+    if (btn?.dataset?.name && typeof window.addToRecentlyViewed === 'function') {
+      window.addToRecentlyViewed(btn.dataset.name, btn.dataset.price, btn.dataset.img);
     }
   }
 
@@ -204,15 +221,17 @@
       const name = card.querySelector('.hamper-card-name')?.textContent?.trim();
       const priceEl = card.querySelector('.hamper-price');
       const price = priceEl?.childNodes[0]?.textContent?.trim() || priceEl?.textContent?.trim();
+      const img = card.querySelector('.hamper-card-img')?.getAttribute('src') || 'images/hampers.png';
       const footer = card.querySelector('.hamper-card-footer');
       if (!name || !footer) return;
 
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'cat-add-cart-btn';
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M3 3h2l2.2 10.3a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 7H6"/></svg> Add to Cart`;
-      btn.addEventListener('click', () => addToCart(name, price, 'images/necklaces.png', btn));
-      footer.insertBefore(btn, footer.querySelector('.cat-inquire-btn'));
+      btn.className = 'ornza-add-cart cat-add-cart-btn';
+      btn.setAttribute('aria-label', 'Add to cart');
+      btn.innerHTML = addCartMarkup('Add');
+      btn.addEventListener('click', () => addToCart(name, price, img, btn));
+      footer.appendChild(btn);
     });
   }
 
@@ -227,10 +246,11 @@
 
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'cat-add-cart-btn';
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M3 3h2l2.2 10.3a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 7H6"/></svg> Add to Cart`;
+      btn.className = 'ornza-add-cart cat-add-cart-btn';
+      btn.setAttribute('aria-label', 'Add to cart');
+      btn.innerHTML = addCartMarkup('Add');
       btn.addEventListener('click', () => addToCart(name, price, img, btn));
-      footer.insertBefore(btn, footer.querySelector('.cat-inquire-btn'));
+      footer.appendChild(btn);
     });
   }
 
@@ -238,16 +258,17 @@
     document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
       if (btn.dataset.cartBound) return;
       btn.dataset.cartBound = '1';
+      btn.classList.add('ornza-add-cart');
 
       const card = btn.closest('.product-card');
       const title = card?.querySelector('.product-title')?.textContent?.trim();
       const price = card?.querySelector('.product-price')?.textContent?.trim();
       const img = card?.querySelector('.product-image-container img')?.getAttribute('src');
 
-      if (!btn.querySelector('.add-cart-label')) {
+      if (!btn.querySelector('.ornza-add-cart-label, .add-cart-label')) {
         const label = document.createElement('span');
-        label.className = 'add-cart-label';
-        label.textContent = 'Add to Cart';
+        label.className = 'ornza-add-cart-label';
+        label.textContent = 'Add';
         btn.appendChild(label);
       }
 
@@ -298,9 +319,19 @@
     document.getElementById('cart-checkout-btn')?.addEventListener('click', whatsappOrder);
 
     document.querySelectorAll('.prod-add-cart').forEach((btn) => {
+      if (btn.dataset.cartBound) return;
+      btn.dataset.cartBound = '1';
+      btn.classList.add('ornza-add-cart');
+      const label = btn.querySelector('.ornza-add-cart-label, .prod-add-cart-label');
+      if (label) label.classList.add('ornza-add-cart-label');
+      else btn.innerHTML = addCartMarkup('Add');
       btn.addEventListener('click', () => {
         addToCart(btn.dataset.name, btn.dataset.price, btn.dataset.img, btn);
       });
+    });
+
+    document.querySelectorAll('.qv-add-cart').forEach((btn) => {
+      btn.classList.add('ornza-add-cart');
     });
 
     bindCatalogCards();

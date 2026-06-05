@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders · ORNZA Customer Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../dashboard.css">
+</head>
+<body class="portal">
+  <div class="portal-shell">
+    <aside class="portal-sidebar">
+      <div class="portal-brand">
+        <div class="portal-brand-logo">ORN<span>Z</span>A</div>
+        <span class="portal-brand-badge">Customer</span>
+      </div>
+      <nav class="portal-nav">
+        <div class="portal-nav-label">My Account</div>
+        <a href="index.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          Overview
+        </a>
+        <a href="orders.html" class="portal-nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          My Orders
+          <span class="nav-badge">3</span>
+        </a>
+        <a href="wishlist.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Wishlist
+        </a>
+        <a href="addresses.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Addresses
+        </a>
+        <a href="profile.html" class="portal-nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile &amp; Settings
+        </a>
+      </nav>
+      <div class="portal-sidebar-footer">
+        <div class="portal-user-mini">
+          <div class="portal-user-avatar">PS</div>
+          <div class="portal-user-info">
+            <div class="portal-user-name">Priya Sharma</div>
+            <div class="portal-user-role">Gold Member</div>
+          </div>
+        </div>
+        <a href="../../index.html" class="portal-back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Store
+        </a>
+      </div>
+    </aside>
+
+    <div class="portal-sidebar-overlay"></div>
+
+    <main class="portal-main">
+      <header class="portal-topbar">
+        <button class="portal-topbar-toggle" aria-label="Toggle menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <h1 class="portal-topbar-title">My Orders</h1>
+        <div class="portal-topbar-spacer"></div>
+        <a href="../../track-order.html" class="portal-btn portal-btn-outline portal-btn-sm">Track Order</a>
+      </header>
+
+      <div class="portal-content">
+        <div class="portal-page-header">
+          <p>View and track all your ORNZA purchases. 12 orders total.</p>
+        </div>
+
+        <!-- Active order detail card -->
+        <div class="portal-card" id="customer-active-order" style="margin-bottom:24px;">
+          <div class="portal-card-header">
+            <div>
+              <h2 class="portal-card-title">Order <span id="active-order-id">—</span></h2>
+              <p id="active-order-meta" style="font-size:12px;color:var(--portal-text-muted);margin-top:4px;">—</p>
+            </div>
+            <span id="active-order-status"></span>
+          </div>
+          <div class="portal-card-body">
+            <div class="portal-payment-row">
+              <span class="portal-payment-row-label">Payment</span>
+              <span id="active-payment-method">—</span>
+              <span id="active-payment-status"></span>
+            </div>
+            <div class="portal-timeline" id="active-order-timeline"></div>
+            <div class="portal-table-wrap">
+              <table class="portal-table">
+                <thead><tr><th>Product</th><th>Qty</th><th>Price</th></tr></thead>
+                <tbody id="active-order-items"></tbody>
+              </table>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+              <a href="#" id="active-track-link" class="portal-btn portal-btn-primary portal-btn-sm">Track Shipment</a>
+              <a href="order-track.html" id="active-portal-track" class="portal-btn portal-btn-outline portal-btn-sm">Live Tracker</a>
+              <button class="portal-btn portal-btn-ghost portal-btn-sm">Need Help?</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- All orders table -->
+        <div class="portal-card">
+          <div class="portal-card-header">
+            <h2 class="portal-card-title">Order History</h2>
+            <select class="portal-form-select" style="width:auto;padding:6px 12px;font-size:12px;">
+              <option>All Orders</option>
+              <option>Active</option>
+              <option>Delivered</option>
+              <option>Cancelled</option>
+            </select>
+          </div>
+          <div class="portal-table-wrap">
+            <table class="portal-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Products</th>
+                  <th>Date</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="customer-orders-tbody"></tbody>
+            </table>
+          </div>
+          <div class="portal-pagination">
+            <button class="portal-page-btn">←</button>
+            <button class="portal-page-btn active">1</button>
+            <button class="portal-page-btn">2</button>
+            <button class="portal-page-btn">3</button>
+            <button class="portal-page-btn">→</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../orders-data.js"></script>
+  <script src="customer-orders.js"></script>
+  <script src="../dashboard.js"></script>
+</body>
+</html>

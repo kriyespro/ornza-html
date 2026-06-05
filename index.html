@@ -595,10 +595,7 @@
     .prod-price-line {
       display: flex;
       align-items: center;
-      height: 26px;
-    }
-    .prod-card-footer > .prod-add-cart {
-      align-self: flex-start;
+      height: 34px;
     }
     .prod-price-meta {
       display: flex;
@@ -1488,52 +1485,6 @@
     }
     .cat-nav-item .cn-badge.gold { background: #C9A84C; color: #1A1507; }
 
-    /* ═══════════════════════════════
-       ENHANCED PRODUCT CARDS
-    ═══════════════════════════════ */
-    .prod-add-cart {
-      flex: 0 0 auto;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      background: #1A1507;
-      color: #C9A84C;
-      border: none;
-      padding: 0 7px;
-      width: auto;
-      max-width: 52px;
-      height: 26px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      cursor: pointer;
-      border-radius: 3px;
-      transition: background 0.2s ease, color 0.2s ease;
-      line-height: 1;
-    }
-    .prod-add-cart svg {
-      width: 10px;
-      height: 10px;
-      flex-shrink: 0;
-    }
-    .prod-add-cart-label {
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .prod-add-cart:hover { background: #C9A84C; color: #1A1507; }
-    .prod-add-cart.added { background: #6bcb77; color: #fff; max-width: 58px; }
-    @media (max-width: 900px) {
-      .prod-add-cart .prod-add-cart-label { display: none; }
-      .prod-add-cart {
-        padding: 0;
-        width: 26px;
-        max-width: 26px;
-      }
-    }
     .prod-urgency {
       display: flex;
       align-items: center;
@@ -3060,7 +3011,7 @@
         <span style="font-size:10px;color:#bbb;">·</span>
         <span style="font-size:11px;color:#bbb;font-weight:300;">Free Shipping above ₹999</span>
       </div>
-      <button type="button" class="qv-btn qv-add-cart" id="qv-add-cart-btn">Add to Cart</button>
+      <button type="button" class="qv-btn qv-add-cart ornza-add-cart" id="qv-add-cart-btn">Add to Cart</button>
       <button class="qv-btn qv-btn-secondary" onclick="window.location='contact.html'">Inquire</button>
       <div style="font-size:9px;color:#bbb;text-align:center;margin-top:12px;letter-spacing:0.08em;">COD Available · 7-Day Returns</div>
     </div>
@@ -3146,22 +3097,17 @@ function renderCart() {
   }
 }
 function addToCart(name, price, img, btn) {
+  if (window.OrnzaCart) {
+    window.OrnzaCart.addToCart(name, price, img, btn);
+    addToRecentlyViewed(name, price, img);
+    return;
+  }
   const existing = cart.find(i => i.name === name);
   if (existing) { existing.qty++; }
   else { cart.push({ name, price, img, qty: 1 }); }
   saveCart();
   updateCartCount();
-  if (btn) {
-    if (!btn.dataset.originalLabel) btn.dataset.originalLabel = btn.innerHTML;
-    btn.classList.add('added');
-    const label = btn.querySelector('.prod-add-cart-label');
-    if (label) label.textContent = 'Added';
-    else btn.textContent = 'Added';
-    setTimeout(() => {
-      btn.classList.remove('added');
-      btn.innerHTML = btn.dataset.originalLabel;
-    }, 2000);
-  }
+  renderCart();
   addToRecentlyViewed(name, price, img);
 }
 function removeFromCart(idx) {

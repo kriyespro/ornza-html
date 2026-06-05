@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORNZA Portal · Dashboard Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+  <style>
+    .hub-page { min-height: 100vh; padding: 48px 24px 64px; background: linear-gradient(160deg, #FFFFF0, #F7E7CE); }
+    .hub-inner { max-width: 960px; margin: 0 auto; }
+    .hub-logo { font-family: var(--portal-font-display); font-size: 42px; letter-spacing: 0.12em; text-align: center; margin-bottom: 8px; }
+    .hub-logo span { color: var(--portal-gold); }
+    .hub-tagline { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--portal-text-muted); text-align: center; margin-bottom: 40px; }
+    .hub-section-title { font-family: var(--portal-font-display); font-size: 18px; margin-bottom: 16px; color: var(--portal-text); }
+    .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 36px; }
+    .hub-link { display: flex; align-items: center; gap: 12px; background: var(--portal-surface); border: 1px solid var(--portal-border); border-radius: 10px; padding: 14px 16px; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+    .hub-link:hover { border-color: var(--portal-gold); transform: translateY(-2px); box-shadow: var(--portal-shadow); }
+    .hub-link svg { width: 18px; height: 18px; color: var(--portal-gold); flex-shrink: 0; }
+    .hub-link.admin-link { border-left: 3px solid #1A1507; }
+    .hub-link.customer-link { border-left: 3px solid var(--portal-gold); }
+    .hub-main-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .hub-card { background: var(--portal-surface); border: 1px solid var(--portal-border); border-radius: 16px; padding: 32px; text-align: center; transition: all 0.3s; box-shadow: var(--portal-shadow); }
+    .hub-card:hover { transform: translateY(-4px); border-color: var(--portal-gold); }
+    .hub-card h2 { font-family: var(--portal-font-display); font-size: 22px; margin-bottom: 10px; }
+    .hub-card p { font-size: 13px; color: var(--portal-text-muted); margin-bottom: 20px; line-height: 1.6; }
+    .hub-back { display: block; text-align: center; font-size: 13px; color: var(--portal-text-muted); margin-top: 24px; }
+    .hub-back:hover { color: var(--portal-gold-deep); }
+    @media (max-width: 700px) { .hub-main-cards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="portal">
+  <div class="hub-page">
+    <div class="hub-inner">
+      <div class="hub-logo">ORN<span>Z</span>A</div>
+      <p class="hub-tagline">Portal Hub</p>
+
+      <div class="hub-main-cards">
+        <a href="customer/index.html" class="hub-card">
+          <h2>Customer Portal</h2>
+          <p>Orders, wishlist, addresses and profile settings.</p>
+          <span class="portal-btn portal-btn-primary">Enter →</span>
+        </a>
+        <a href="admin/index.html" class="hub-card">
+          <h2>Admin Dashboard</h2>
+          <p>Products, orders, customers, inventory and analytics.</p>
+          <span class="portal-btn portal-btn-primary">Enter →</span>
+        </a>
+      </div>
+
+      <h3 class="hub-section-title">Admin Pages</h3>
+      <div class="hub-grid">
+        <a href="admin/index.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg> Dashboard</a>
+        <a href="admin/analytics.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Analytics</a>
+        <a href="admin/products.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg> All Products</a>
+        <a href="admin/product-add.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add Product</a>
+        <a href="admin/categories.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Categories</a>
+        <a href="admin/hampers.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/></svg> Hampers</a>
+        <a href="admin/inventory.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg> Inventory</a>
+        <a href="admin/orders.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/></svg> Orders</a>
+        <a href="admin/customers.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Customers</a>
+        <a href="admin/reviews.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Reviews</a>
+        <a href="admin/settings.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/></svg> Settings</a>
+        <a href="admin/login.html" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Admin Login</a>
+      </div>
+
+      <h3 class="hub-section-title">Customer Pages</h3>
+      <div class="hub-grid">
+        <a href="customer/index.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/></svg> Overview</a>
+        <a href="customer/orders.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/></svg> My Orders</a>
+        <a href="customer/order-track.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/></svg> Order Tracker</a>
+        <a href="../track-order.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Public Tracker</a>
+        <a href="admin/order-detail.html?id=ORN-2847" class="hub-link admin-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg> Order Detail</a>
+        <a href="customer/wishlist.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Wishlist</a>
+        <a href="customer/addresses.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Addresses</a>
+        <a href="customer/profile.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Profile</a>
+        <a href="customer/login.html" class="hub-link customer-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/></svg> Customer Login</a>
+      </div>
+
+      <a href="../index.html" class="hub-back">← Back to ORNZA Store</a>
+    </div>
+  </div>
+</body>
+</html>
