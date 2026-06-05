@@ -780,13 +780,41 @@
       align-items: stretch;
     }
     .hamper-feature-card {
-      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+      position: relative;
       border: 1px solid rgba(201,168,76,0.25);
       border-radius: 10px;
       padding: 36px 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      overflow: hidden;
+      min-height: 280px;
+    }
+    .hamper-feature-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hamper-feature-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hamper-feature-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(135deg, rgba(10,8,4,0.92) 0%, rgba(10,8,4,0.75) 50%, rgba(10,8,4,0.55) 100%);
+    }
+    .hamper-feature-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      flex: 1;
     }
     .hamper-feature-label {
       font-size: 8px;
@@ -811,21 +839,57 @@
       margin-bottom: 24px;
     }
     .hamper-mini-card {
+      position: relative;
       border: 1px solid rgba(201,168,76,0.15);
       border-radius: 10px;
-      padding: 24px 22px;
-      background: rgba(255,255,240,0.02);
-      transition: all 0.3s ease;
+      padding: 0;
+      background: #0a0804;
+      transition: all 0.35s ease;
       text-decoration: none;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      min-height: 280px;
     }
     .hamper-mini-card:hover {
-      border-color: rgba(201,168,76,0.4);
-      background: rgba(201,168,76,0.05);
+      border-color: rgba(201,168,76,0.45);
       transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
     }
-    .hamper-mini-icon { font-size: 32px; margin-bottom: 14px; }
+    .hamper-mini-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hamper-mini-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .hamper-mini-card:hover .hamper-mini-bg img { transform: scale(1.06); }
+    .hamper-mini-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgba(8,6,4,0.92) 0%, rgba(8,6,4,0.5) 45%, rgba(8,6,4,0.2) 100%);
+      transition: background 0.35s ease;
+    }
+    .hamper-mini-card:hover .hamper-mini-overlay {
+      background: linear-gradient(to top, rgba(8,6,4,0.88) 0%, rgba(8,6,4,0.4) 50%, rgba(8,6,4,0.15) 100%);
+    }
+    .hamper-mini-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: flex-end;
+      padding: 24px 22px;
+      margin-top: auto;
+    }
+    .hamper-mini-icon { display: none; }
     .hamper-mini-name {
       font-family: 'Playfair Display', serif;
       font-size: 17px;
@@ -835,11 +899,10 @@
     }
     .hamper-mini-desc {
       font-size: 11px;
-      color: rgba(232,213,160,0.45);
+      color: rgba(232,213,160,0.65);
       font-weight: 300;
       line-height: 1.5;
-      flex: 1;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .hamper-mini-price {
       font-size: 15px;
@@ -1633,15 +1696,30 @@
     .why-card:hover::before { opacity: 1; }
     .why-card:last-child { border-right: none; }
     .why-icon {
-      width: 64px; height: 64px;
+      width: 80px; height: 80px;
       border-radius: 50%;
       background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
-      border: 1px solid rgba(201,168,76,0.25);
+      border: 2px solid rgba(201,168,76,0.35);
       display: flex; align-items: center; justify-content: center;
       font-size: 26px; margin: 0 auto 20px;
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
     }
-    .why-card:hover .why-icon { transform: scale(1.1); }
+    .why-icon img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .why-card:hover .why-icon {
+      transform: scale(1.08);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.25);
+    }
+    .why-card-body {
+      position: relative;
+      z-index: 2;
+    }
     .why-title {
       font-family: 'Playfair Display', serif;
       font-size: 18px; color: #1A1507;
@@ -1675,16 +1753,26 @@
       min-height: 520px;
     }
     .bridal-visual {
-      background: linear-gradient(135deg, #1a0d06, #0f0704);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 120px;
       position: relative;
       overflow: hidden;
+      background: #1a0d06;
+      min-height: 520px;
     }
-    .bridal-visual::before {
+    .bridal-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .bridal-split:hover .bridal-visual img { transform: scale(1.03); }
+    .bridal-visual::after {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.15) 0%, transparent 65%);
+      background: linear-gradient(to right, transparent 60%, rgba(250,247,240,0.15) 100%),
+                  linear-gradient(to top, rgba(26,13,6,0.35) 0%, transparent 40%);
+      pointer-events: none;
     }
     .bridal-content {
       background: #FAF7F0;
@@ -1722,23 +1810,56 @@
       overflow: hidden;
       position: relative;
       aspect-ratio: 3/4;
+      min-height: 280px;
       text-decoration: none;
       display: block;
-      transition: transform 0.35s;
+      background: #1a1408;
+      transition: transform 0.35s, box-shadow 0.35s;
     }
-    .festival-card:hover { transform: translateY(-6px); }
+    .festival-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+    }
     .festival-bg {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 64px;
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
     }
+    .festival-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .festival-card:hover .festival-bg img { transform: scale(1.08); }
     .festival-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(8,6,4,0.92) 0%, rgba(8,6,4,0.2) 60%, transparent 100%);
+      z-index: 1;
+      background: linear-gradient(
+        to top,
+        rgba(8,6,4,0.92) 0%,
+        rgba(8,6,4,0.55) 28%,
+        rgba(8,6,4,0.12) 55%,
+        transparent 100%
+      );
+      transition: background 0.35s ease;
+    }
+    .festival-card:hover .festival-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(8,6,4,0.88) 0%,
+        rgba(8,6,4,0.45) 30%,
+        rgba(8,6,4,0.08) 55%,
+        transparent 100%
+      );
     }
     .festival-info {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 20px 18px;
+      z-index: 2;
     }
     .festival-label { font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase; color: #C9A84C; margin-bottom: 4px; }
     .festival-name { font-family: 'Playfair Display', serif; font-size: 18px; color: #FFFFF0; margin-bottom: 6px; }
@@ -1754,21 +1875,33 @@
       gap: 20px; align-items: stretch;
     }
     .pkg-main {
-      background: linear-gradient(135deg, #1a1408, #0d0a04);
       border: 1px solid rgba(201,168,76,0.2);
       border-radius: 12px;
       padding: 48px 40px;
       display: flex; flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-end;
       position: relative; overflow: hidden;
+      min-height: 380px;
+    }
+    .pkg-main-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .pkg-main-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
     .pkg-main::before {
       content: '';
-      position: absolute; top: -40px; right: -40px;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.1), transparent 70%);
+      position: absolute; inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgba(10,8,4,0.95) 0%, rgba(10,8,4,0.6) 45%, rgba(10,8,4,0.25) 100%);
     }
-    .pkg-visual { font-size: 80px; text-align: center; margin-bottom: 24px; position: relative; z-index: 1; }
+    .pkg-visual { display: none; }
+    .pkg-main-body { position: relative; z-index: 2; }
     .pkg-title { font-family: 'Playfair Display', serif; font-size: 26px; color: #FFFFF0; font-weight: 300; margin-bottom: 12px; z-index: 1; position: relative; }
     .pkg-desc { font-size: 12px; color: rgba(232,213,160,0.5); line-height: 1.7; z-index: 1; position: relative; }
     .pkg-feature-card {
@@ -2644,30 +2777,51 @@
   </div>
   <div class="hamper-strip">
     <div class="hamper-feature-card">
-      <div>
-        <div class="hamper-feature-label"> Premium Gifting Experience</div>
-        <div class="hamper-feature-title">Make Every Gift Unforgettable</div>
-        <div class="hamper-feature-desc">Every ORNZA hamper is wrapped in our luxury ivory keepsake box, with plush velvet cushioning, a hand-written calligraphy note, and discrete price-hidden shipping.</div>
+      <div class="hamper-feature-bg">
+        <img src="images/hampers.png" alt="ORNZA luxury gift hamper packaging" loading="lazy" width="500" height="600">
       </div>
-      <a href="hampers.html" style="display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#C9A84C;border:1px solid rgba(201,168,76,0.35);padding:12px 24px;border-radius:2px;text-decoration:none;font-weight:500;width:fit-content;transition:all 0.25s;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">View All Hampers </a>
+      <div class="hamper-feature-overlay"></div>
+      <div class="hamper-feature-inner">
+        <div>
+          <div class="hamper-feature-label"> Premium Gifting Experience</div>
+          <div class="hamper-feature-title">Make Every Gift Unforgettable</div>
+          <div class="hamper-feature-desc">Every ORNZA hamper is wrapped in our luxury ivory keepsake box, with plush velvet cushioning, a hand-written calligraphy note, and discrete price-hidden shipping.</div>
+        </div>
+        <a href="hampers.html" style="display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#C9A84C;border:1px solid rgba(201,168,76,0.35);padding:12px 24px;border-radius:2px;text-decoration:none;font-weight:500;width:fit-content;transition:all 0.25s;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">View All Hampers </a>
+      </div>
     </div>
     <a href="hampers.html#brides-delight" class="hamper-mini-card">
-      <div class="hamper-mini-icon"></div>
-      <div class="hamper-mini-name">Bride's Delight</div>
-      <div class="hamper-mini-desc">Mangalsutra + Earrings + Bracelet + Pearl Pendant</div>
-      <div class="hamper-mini-price">From ₹7,499</div>
+      <div class="hamper-mini-bg">
+        <img src="images/hamper-brides.png" alt="Bride's Delight gift hamper" loading="lazy" width="400" height="500">
+      </div>
+      <div class="hamper-mini-overlay"></div>
+      <div class="hamper-mini-content">
+        <div class="hamper-mini-name">Bride's Delight</div>
+        <div class="hamper-mini-desc">Mangalsutra + Earrings + Bracelet + Pearl Pendant</div>
+        <div class="hamper-mini-price">From ₹7,499</div>
+      </div>
     </a>
     <a href="hampers.html#anniversary-gold" class="hamper-mini-card">
-      <div class="hamper-mini-icon"></div>
-      <div class="hamper-mini-name">Anniversary Gold</div>
-      <div class="hamper-mini-desc">His Chain + Her Necklace + Couple Rings</div>
-      <div class="hamper-mini-price">From ₹8,999</div>
+      <div class="hamper-mini-bg">
+        <img src="images/hamper-anniversary.png" alt="Anniversary Gold gift hamper" loading="lazy" width="400" height="500">
+      </div>
+      <div class="hamper-mini-overlay"></div>
+      <div class="hamper-mini-content">
+        <div class="hamper-mini-name">Anniversary Gold</div>
+        <div class="hamper-mini-desc">His Chain + Her Necklace + Couple Rings</div>
+        <div class="hamper-mini-price">From ₹8,999</div>
+      </div>
     </a>
     <a href="hampers.html#birthday-sparkle" class="hamper-mini-card">
-      <div class="hamper-mini-icon"></div>
-      <div class="hamper-mini-name">Birthday Sparkle</div>
-      <div class="hamper-mini-desc">Studs + Bracelet + Pendant Set + Rings</div>
-      <div class="hamper-mini-price">From ₹5,499</div>
+      <div class="hamper-mini-bg">
+        <img src="images/hamper-birthday.png" alt="Birthday Sparkle gift hamper" loading="lazy" width="400" height="500">
+      </div>
+      <div class="hamper-mini-overlay"></div>
+      <div class="hamper-mini-content">
+        <div class="hamper-mini-name">Birthday Sparkle</div>
+        <div class="hamper-mini-desc">Studs + Bracelet + Pendant Set + Rings</div>
+        <div class="hamper-mini-price">From ₹5,499</div>
+      </div>
     </a>
   </div>
 </section>
@@ -2890,7 +3044,9 @@
 ═══════════════════════════════ -->
 <section class="sec" id="bridal" style="padding-top:0;padding-bottom:0;overflow:hidden;">
   <div class="bridal-split">
-    <div class="bridal-visual"></div>
+    <div class="bridal-visual">
+      <img src="images/bridal-hero.png" alt="ORNZA bridal jewellery collection" loading="lazy" width="800" height="1000">
+    </div>
     <div class="bridal-content">
       <div class="sec-eyebrow" style="text-align:left;">For the Most Special Day</div>
       <h2 class="about-v2-h2" style="margin-bottom:12px;">Bridal <em style="font-style:italic;color:#C9A84C;">Jewellery</em><br>Collection</h2>
@@ -2932,8 +3088,10 @@
     <p class="sec-sub sec-sub-light">Thoughtfully crafted sets for Diwali, Navratri, Eid, Christmas &amp; every occasion worth celebrating.</p>
   </div>
   <div class="festival-grid">
-    <a href="hampers.html" class="festival-card" style="background:linear-gradient(135deg,#1a0a06,#0d0504);">
-      <div class="festival-bg"></div>
+    <a href="hampers.html" class="festival-card">
+      <div class="festival-bg">
+        <img src="images/festival-diwali.png" alt="Golden Diwali jewellery set" loading="lazy" width="400" height="533" decoding="async">
+      </div>
       <div class="festival-overlay"></div>
       <div class="festival-info">
         <div class="festival-label"> Diwali Special</div>
@@ -2942,8 +3100,10 @@
         <div class="festival-urgency"> 142 sold this week</div>
       </div>
     </a>
-    <a href="hampers.html" class="festival-card" style="background:linear-gradient(135deg,#06101a,#030a10);">
-      <div class="festival-bg"></div>
+    <a href="hampers.html" class="festival-card">
+      <div class="festival-bg">
+        <img src="images/festival-navratri.png" alt="Navratri garba night jewellery" loading="lazy" width="400" height="533">
+      </div>
       <div class="festival-overlay"></div>
       <div class="festival-info">
         <div class="festival-label"> Navratri Glam</div>
@@ -2952,8 +3112,10 @@
         <div class="festival-urgency"> Only 8 sets left!</div>
       </div>
     </a>
-    <a href="hampers.html" class="festival-card" style="background:linear-gradient(135deg,#0a1206,#060d03);">
-      <div class="festival-bg"></div>
+    <a href="hampers.html" class="festival-card">
+      <div class="festival-bg">
+        <img src="images/festival-eid.png" alt="Pearl elegance jewellery set" loading="lazy" width="400" height="533">
+      </div>
       <div class="festival-overlay"></div>
       <div class="festival-info">
         <div class="festival-label"> Eid Collection</div>
@@ -2962,8 +3124,10 @@
         <div class="festival-urgency"> 78 sold this month</div>
       </div>
     </a>
-    <a href="hampers.html" class="festival-card" style="background:linear-gradient(135deg,#160d1a,#0d0610);">
-      <div class="festival-bg"></div>
+    <a href="hampers.html" class="festival-card">
+      <div class="festival-bg">
+        <img src="images/festival-corporate.png" alt="Executive corporate gift box" loading="lazy" width="400" height="533">
+      </div>
       <div class="festival-overlay"></div>
       <div class="festival-info">
         <div class="festival-label"> Corporate Gift</div>
@@ -2989,28 +3153,44 @@
   </div>
   <div class="why-grid">
     <div class="why-card">
-      <div class="why-icon"></div>
-      <div class="why-tick"> ORNZA</div>
-      <div class="why-title">Premium Packaging</div>
-      <div class="why-desc">Luxury ivory keepsake box with plush velvet, calligraphy note &amp; satin ribbon. Gift-ready on every single order.</div>
+      <div class="why-icon">
+        <img src="images/packaging-hero.png" alt="ORNZA luxury ivory keepsake packaging" loading="lazy" width="80" height="80">
+      </div>
+      <div class="why-card-body">
+        <div class="why-tick">✓ ORNZA</div>
+        <div class="why-title">Premium Packaging</div>
+        <div class="why-desc">Luxury ivory keepsake box with plush velvet, calligraphy note &amp; satin ribbon. Gift-ready on every single order.</div>
+      </div>
     </div>
     <div class="why-card">
-      <div class="why-icon"></div>
-      <div class="why-tick"> ORNZA</div>
-      <div class="why-title">Better Designs</div>
-      <div class="why-desc">500+ exclusive designs crafted by master artisans in Surat — inspired by global trends, rooted in Indian heritage.</div>
+      <div class="why-icon">
+        <img src="images/bridal-hero.png" alt="Exclusive ORNZA jewellery designs" loading="lazy" width="80" height="80">
+      </div>
+      <div class="why-card-body">
+        <div class="why-tick">✓ ORNZA</div>
+        <div class="why-title">Better Designs</div>
+        <div class="why-desc">500+ exclusive designs crafted by master artisans in Surat — inspired by global trends, rooted in Indian heritage.</div>
+      </div>
     </div>
     <div class="why-card">
-      <div class="why-icon"></div>
-      <div class="why-tick"> ORNZA</div>
-      <div class="why-title">Affordable Luxury</div>
-      <div class="why-desc">Fine jewellery quality at 80% less than gold prices. Anti-tarnish, skin-safe, long-lasting — without breaking the bank.</div>
+      <div class="why-icon">
+        <img src="images/rings.png" alt="Affordable luxury gold ring" loading="lazy" width="80" height="80">
+      </div>
+      <div class="why-card-body">
+        <div class="why-tick">✓ ORNZA</div>
+        <div class="why-title">Affordable Luxury</div>
+        <div class="why-desc">Fine jewellery quality at 80% less than gold prices. Anti-tarnish, skin-safe, long-lasting — without breaking the bank.</div>
+      </div>
     </div>
     <div class="why-card">
-      <div class="why-icon"></div>
-      <div class="why-tick"> ORNZA</div>
-      <div class="why-title">Fast Shipping</div>
-      <div class="why-desc">Orders dispatched within 24 hours. Express delivery in 2–3 days. Free shipping above ₹999 across all of India.</div>
+      <div class="why-icon">
+        <img src="images/hampers.png" alt="Gift-ready ORNZA hamper delivery" loading="lazy" width="80" height="80">
+      </div>
+      <div class="why-card-body">
+        <div class="why-tick">✓ ORNZA</div>
+        <div class="why-title">Fast Shipping</div>
+        <div class="why-desc">Orders dispatched within 24 hours. Express delivery in 2–3 days. Free shipping above ₹999 across all of India.</div>
+      </div>
     </div>
   </div>
   <div class="why-vs" style="margin-top:0;">vs. Regular Artificial Jewellery: No Packaging · Limited Designs · Skin Reactions · Slow Delivery</div>
@@ -3027,8 +3207,10 @@
   </div>
   <div class="pkg-grid">
     <div class="pkg-main">
-      <div class="pkg-visual"></div>
-      <div>
+      <div class="pkg-main-bg">
+        <img src="images/packaging-hero.png" alt="ORNZA luxury ivory keepsake packaging" loading="lazy" width="600" height="500">
+      </div>
+      <div class="pkg-main-body">
         <div class="pkg-title">The ORNZA Keepsake Experience</div>
         <p class="pkg-desc">From the moment your order is placed, we treat it as a premium gift. Every piece is wrapped in anti-tarnish tissue, placed on velvet, and sealed with our wax stamp inside an ivory rigid box.</p>
       </div>
