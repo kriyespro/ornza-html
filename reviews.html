@@ -7,330 +7,17 @@
   <meta name="description" content="Read genuine customer reviews for ORNZA fine artificial jewellery. 4.9/5 stars from 500+ happy customers across India. See what our community loves about ORNZA jewellery from Surat.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .reviews-page-hero {
-      min-height: 320px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      background: linear-gradient(135deg, #0a0804 0%, #110d06 100%);
-      padding: 80px 40px 60px;
-      margin-top: 80px;
-    }
-    .reviews-page-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 80%, rgba(201,168,76,0.12) 0%, transparent 60%);
-    }
-    .reviews-stats-bar {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-      padding: 40px;
-      background: rgba(201,168,76,0.03);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-      flex-wrap: wrap;
-    }
-    .stat-block { text-align: center; }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 48px;
-      font-weight: 300;
-      color: var(--color-gold);
-      line-height: 1;
-      display: block;
-    }
-    .stat-label {
-      font-size: 9px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(232,213,160,0.5);
-      margin-top: 6px;
-    }
-    .reviews-filter-bar {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 32px 40px;
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      padding: 8px 20px;
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 500;
-      border: 1px solid rgba(201,168,76,0.25);
-      background: transparent;
-      color: rgba(232,213,160,0.6);
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      font-family: var(--font-sans);
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: rgba(201,168,76,0.1);
-      border-color: var(--color-gold);
-      color: var(--color-text-light);
-    }
-    .reviews-masonry {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px 80px;
-      columns: 3;
-      column-gap: 24px;
-    }
-    .review-tile {
-      break-inside: avoid;
-      background: rgba(255,255,240,0.025);
-      border: 1px solid rgba(201,168,76,0.12);
-      border-radius: 8px;
-      padding: 28px;
-      margin-bottom: 24px;
-      transition: all 0.3s ease;
-      display: inline-block;
-      width: 100%;
-    }
-    .review-tile:hover {
-      border-color: rgba(201,168,76,0.35);
-      background: rgba(201,168,76,0.05);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-    }
-    .review-tile-stars {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 14px;
-    }
-    .review-tile-stars svg {
-      width: 14px;
-      height: 14px;
-      fill: var(--color-gold);
-      color: var(--color-gold);
-    }
-    .review-tile-text {
-      font-size: 13px;
-      line-height: 1.75;
-      color: rgba(232,213,160,0.75);
-      font-weight: 300;
-      font-style: italic;
-      margin-bottom: 20px;
-    }
-    .review-tile-quote {
-      font-size: 40px;
-      color: rgba(201,168,76,0.15);
-      font-family: var(--font-display);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .review-tile-footer {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(201,168,76,0.07);
-    }
-    .review-tile-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 600;
-      color: #0a0804;
-      flex-shrink: 0;
-      background: linear-gradient(135deg, var(--color-gold), #c08000);
-    }
-    .review-tile-name {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--color-text-light);
-      letter-spacing: 0.05em;
-    }
-    .review-tile-meta {
-      font-size: 10px;
-      color: rgba(201,168,76,0.5);
-      font-weight: 300;
-    }
-    .review-tile-product {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 8px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--color-gold);
-      border: 1px solid rgba(201,168,76,0.2);
-      padding: 3px 10px;
-      border-radius: 10px;
-      margin-bottom: 14px;
-    }
-    .review-tile-verified {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 8px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #6bcb77;
-      margin-top: 4px;
-    }
-    .write-review-section {
-      background: rgba(201,168,76,0.03);
-      border-top: 1px solid rgba(201,168,76,0.1);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-      padding: 70px 40px;
-      text-align: center;
-    }
-    .star-input {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 24px 0;
-    }
-    .star-input svg {
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      color: rgba(201,168,76,0.3);
-      fill: rgba(201,168,76,0.1);
-      transition: all 0.2s ease;
-    }
-    .star-input svg:hover,
-    .star-input svg.selected {
-      color: var(--color-gold);
-      fill: var(--color-gold);
-      transform: scale(1.15);
-    }
-    .review-form {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: left;
-    }
-    @media (max-width: 900px) {
-      .reviews-masonry { columns: 2; padding: 0 20px 60px; }
-      .reviews-stats-bar { gap: 32px; }
-    }
-    @media (max-width: 600px) {
-      .reviews-masonry { columns: 1; }
-      .stat-num { font-size: 36px; }
-    }
-  </style>
 </head>
-<body>
+<body class="ornza-page has-site-header has-hero">
 
-  <!-- â”€â”€ Navigation â”€â”€ -->
-  <nav class="nav" id="main-nav">
-    <a href="index.html" class="nav-logo">ORN<span>Z</span>A</a>
-    <ul class="nav-links-hp">
-      <li><a href="index.html">Home</a></li>
-      <li class="mega-parent">
-        <a href="women.html" class="mega-trigger">Women <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-icon"><polyline points="6 9 12 15 18 9"/></svg></a>
-        <div class="mega-menu">
-          <div class="mega-menu-inner">
-            <div class="mega-section">
-              <div class="mega-section-label">Women's Jewellery</div>
-              <ul class="mega-list">
-                <li><a href="women.html#mangalsutras"><span class="mega-icon">â™¦</span> Mangalsutras</a></li>
-                <li><a href="women.html#bracelets"><span class="mega-icon">â™¦</span> Bracelets</a></li>
-                <li><a href="women.html#chains"><span class="mega-icon">â™¦</span> Chains</a></li>
-                <li><a href="women.html#pendants"><span class="mega-icon">â™¦</span> Pendants</a></li>
-                <li><a href="women.html#silver925"><span class="mega-icon">â™¦</span> 925 Silver</a></li>
-                <li><a href="women.html#set-chain-pendant"><span class="mega-icon">â™¦</span> Set Chain &amp; Pendant</a></li>
-                <li><a href="women.html#rings"><span class="mega-icon">â™¦</span> Rings</a></li>
-                <li><a href="women.html#earrings"><span class="mega-icon">â™¦</span> Earrings</a></li>
-                <li><a href="women.html#pearl"><span class="mega-icon">â™¦</span> Pearl Collection</a></li>
-              </ul>
-            </div>
-            <div class="mega-featured">
-              <div class="mega-featured-tag">Featured</div>
-              <div class="mega-featured-title">Pearl Collection</div>
-              <p class="mega-featured-desc">Timeless elegance with lustrous freshwater pearls</p>
-              <a href="women.html#pearl" class="mega-featured-link">Explore â†’</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="mega-parent">
-        <a href="men.html" class="mega-trigger">Men <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-icon"><polyline points="6 9 12 15 18 9"/></svg></a>
-        <div class="mega-menu">
-          <div class="mega-menu-inner">
-            <div class="mega-section">
-              <div class="mega-section-label">Men's Collection</div>
-              <ul class="mega-list">
-                <li><a href="men.html#bracelets"><span class="mega-icon">â™¦</span> Bracelets</a></li>
-                <li><a href="men.html#chains"><span class="mega-icon">â™¦</span> Chains</a></li>
-                <li><a href="men.html#pendants"><span class="mega-icon">â™¦</span> Pendants</a></li>
-                <li><a href="men.html#rings"><span class="mega-icon">â™¦</span> Rings</a></li>
-              </ul>
-            </div>
-            <div class="mega-featured">
-              <div class="mega-featured-tag">Featured</div>
-              <div class="mega-featured-title">Men's Chains</div>
-              <p class="mega-featured-desc">Bold chains for the modern gentleman</p>
-              <a href="men.html#chains" class="mega-featured-link">Explore â†’</a>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li><a href="silver925.html">925 Silver</a></li>
-      <li><a href="hampers.html">Hampers</a></li>
-      <li><a href="reviews.html" class="active">Reviews</a></li>
-      <li><a href="track-order.html">Track Order</a></li>
-      <li><a href="collections.html">Collections</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-right-group">
-      <a href="contact.html" class="nav-cta">Inquire</a>
-      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
+  <div id="ornza-site-header" data-page="reviews" data-nav-mode="hero"></div>
+<script src="header.js"></script>
 
-  <!-- Mobile Drawer -->
-  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
-  <div class="mobile-nav-drawer" id="mobile-nav-drawer">
-    <div class="mobile-nav-header">
-      <a href="index.html" class="mobile-nav-logo">ORN<span>Z</span>A</a>
-      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close">âœ•</button>
-    </div>
-    <div class="mobile-nav-links">
-      <a href="index.html">Home</a>
-      <div class="mobile-nav-group">
-        <div class="mobile-nav-group-title">Women</div>
-        <a href="women.html#mangalsutras">Mangalsutras</a>
-        <a href="women.html#bracelets">Bracelets</a>
-        <a href="women.html#chains">Chains</a>
-        <a href="women.html#pendants">Pendants</a>
-        <a href="women.html#rings">Rings</a>
-        <a href="women.html#earrings">Earrings</a>
-        <a href="women.html#pearl">Pearl Collection</a>
-      </div>
-      <div class="mobile-nav-group">
-        <div class="mobile-nav-group-title">Men</div>
-        <a href="men.html#bracelets">Bracelets</a>
-        <a href="men.html#chains">Chains</a>
-        <a href="men.html#pendants">Pendants</a>
-        <a href="men.html#rings">Rings</a>
-      </div>
-      <a href="silver925.html">925 Silver</a>
-      <a href="hampers.html">Hampers</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="track-order.html">Track Order</a>
-      <a href="collections.html">Collections</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
 
-  <!-- â”€â”€ Hero â”€â”€ -->
+
+<!-- â”€â”€ Hero â”€â”€ -->
   <div class="reviews-page-hero">
     <div style="position:relative;z-index:1;">
       <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:var(--color-gold);margin-bottom:16px;font-weight:500;">500+ Happy Customers</div>
@@ -374,14 +61,14 @@
     <button class="filter-btn" onclick="filterReviews('men', this)">Men's</button>
     <button class="filter-btn" onclick="filterReviews('silver', this)">925 Silver</button>
     <button class="filter-btn" onclick="filterReviews('hamper', this)">Hampers</button>
-    <button class="filter-btn" onclick="filterReviews('5star', this)">â­ 5 Star Only</button>
+    <button class="filter-btn" onclick="filterReviews('5star', this)">★ 5 Star Only</button>
   </div>
 
   <!-- Reviews Masonry Grid -->
   <div class="reviews-masonry" id="reviews-container">
 
     <div class="review-tile" data-cat="women">
-      <div class="review-tile-product">â™¦ Mangalsutra</div>
+      <div class="review-tile-product">◆ Mangalsutra</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -402,7 +89,7 @@
     </div>
 
     <div class="review-tile" data-cat="men">
-      <div class="review-tile-product">â™¦ Men's Cuban Chain</div>
+      <div class="review-tile-product">◆ Men's Cuban Chain</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -423,7 +110,7 @@
     </div>
 
     <div class="review-tile" data-cat="silver">
-      <div class="review-tile-product">â™¦ 925 Silver Ring</div>
+      <div class="review-tile-product">◆ 925 Silver Ring</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -444,7 +131,7 @@
     </div>
 
     <div class="review-tile" data-cat="hamper">
-      <div class="review-tile-product">â™¦ Anniversary Gold Hamper</div>
+      <div class="review-tile-product">◆ Anniversary Gold Hamper</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -465,7 +152,7 @@
     </div>
 
     <div class="review-tile" data-cat="women">
-      <div class="review-tile-product">â™¦ Pearl Collection</div>
+      <div class="review-tile-product">◆ Pearl Collection</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -486,7 +173,7 @@
     </div>
 
     <div class="review-tile" data-cat="women">
-      <div class="review-tile-product">â™¦ CZ Tennis Bracelet</div>
+      <div class="review-tile-product">◆ CZ Tennis Bracelet</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -507,7 +194,7 @@
     </div>
 
     <div class="review-tile" data-cat="men">
-      <div class="review-tile-product">â™¦ Men's Signet Ring</div>
+      <div class="review-tile-product">◆ Men's Signet Ring</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -528,7 +215,7 @@
     </div>
 
     <div class="review-tile" data-cat="hamper">
-      <div class="review-tile-product">â™¦ Birthday Sparkle Hamper</div>
+      <div class="review-tile-product">◆ Birthday Sparkle Hamper</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -549,7 +236,7 @@
     </div>
 
     <div class="review-tile" data-cat="silver">
-      <div class="review-tile-product">â™¦ 925 Silver Hoop Set</div>
+      <div class="review-tile-product">◆ 925 Silver Hoop Set</div>
       <div class="review-tile-quote">"</div>
       <div class="review-tile-stars">
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -601,70 +288,9 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer style="background:#0a0804;border-top:1px solid rgba(201,168,76,0.1);text-align:center;padding:40px 20px;">
-    <a href="index.html" style="font-family:var(--font-display);font-size:24px;color:var(--color-text-light);text-decoration:none;letter-spacing:0.12em;font-weight:300;">ORN<span style="color:var(--color-gold);font-style:italic;">Z</span>A</a>
-    <p style="margin-top:16px;font-size:10px;letter-spacing:0.2em;color:rgba(232,213,160,0.3);text-transform:uppercase;">Â© 2025 ORNZA. All rights reserved. Surat, India.</p>
-    <div style="margin-top:20px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
-      <a href="index.html" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,213,160,0.4);text-decoration:none;">Home</a>
-      <a href="women.html" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,213,160,0.4);text-decoration:none;">Women</a>
-      <a href="men.html" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,213,160,0.4);text-decoration:none;">Men</a>
-      <a href="contact.html" style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(232,213,160,0.4);text-decoration:none;">Contact</a>
-    </div>
-  </footer>
 
-  <script>
-    const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
-    const hamburger = document.getElementById('nav-hamburger');
-    const drawer = document.getElementById('mobile-nav-drawer');
-    const overlay = document.getElementById('mobile-nav-overlay');
-    const closeBtn = document.getElementById('mobile-nav-close');
-    function openDrawer() { drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow='hidden'; }
-    function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow=''; }
-    hamburger && hamburger.addEventListener('click', openDrawer);
-    closeBtn && closeBtn.addEventListener('click', closeDrawer);
-    overlay && overlay.addEventListener('click', closeDrawer);
+  <div id="ornza-site-footer"></div>
 
-    // Star rating
-    let currentRating = 0;
-    function setRating(n) {
-      currentRating = n;
-      for (let i = 1; i <= 5; i++) {
-        const s = document.getElementById('star' + i);
-        s.classList.toggle('selected', i <= n);
-      }
-    }
-
-    // Filter reviews
-    function filterReviews(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.review-tile').forEach(tile => {
-        const tc = tile.getAttribute('data-cat');
-        const show = cat === 'all' || tc === cat || (cat === '5star');
-        tile.style.display = show ? 'inline-block' : 'none';
-      });
-    }
-
-    function submitReview() {
-      const name = document.getElementById('rev-name').value.trim();
-      const product = document.getElementById('rev-product').value.trim();
-      const review = document.getElementById('rev-review').value.trim();
-      const msg = document.getElementById('rev-message');
-      if (!name || !review || !currentRating) {
-        msg.textContent = 'Please fill in your name, rating, and review.';
-        msg.className = 'form-message error';
-        return;
-      }
-      msg.textContent = 'âœ” Thank you for your review! We'll publish it after a quick verification.';
-      msg.className = 'form-message success';
-      document.getElementById('rev-name').value = '';
-      document.getElementById('rev-product').value = '';
-      document.getElementById('rev-review').value = '';
-      setRating(0);
-    }
-  </script>
 <!-- Sticky WhatsApp Button -->
 <a href="https://wa.me/919999999999" class="wa-sticky-btn" target="_blank" aria-label="Chat with us on WhatsApp">
   <svg viewBox="0 0 24 24">
@@ -672,6 +298,7 @@
   </svg>
   <span class="wa-tooltip">Chat with us</span>
 </a>
+  <script src="footer.js"></script>
   <script src="cart.js"></script>
 </body>
 </html>
